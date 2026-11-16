@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySync | Personal Study Planner</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+    <h2>StudySync 🎓</h2>
+    <p>Your Personal Study Space</p>
+</div>
+    
+
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#subjects">My Subjects</a>
+            <a href="#reports">Progress Reports</a>
+        </nav>
+
+        <button id="themeBtn">🌙 Toggle Theme</button>
+    </aside>
+
+    <main class="main">
+
+        <header id="dashboard">
+            <div>
+                <h1>My Study Dashboard</h1>
+                <p>Plan youe studies. Track your growth. Achieve your goals.</p>
+            </div>
+
+            <button id="addSubjectBtn">+ Add Subject</button>
+        </header>
+
+        <section class="stats">
+            <div class="card">
+                <h3>Total Subjects</h3>
+                <h2 id="totalSubjects">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Total Topics</h3>
+                <h2 id="totalTopics">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Completed Topics</h3>
+                <h2 id="completedTopics">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Overall Progress</h3>
+                <h2 id="overallProgress">0%</h2>
+            </div>
+        </section>
+
+        <section id="subjects">
+            <h2>My Subjects 📚</h2>
+            <div id="subjectList" class="subject-list"></div>
+        </section>
+
+        <section id="reports">
+            <h2>My Progress Report</h2>
+            <div class="card">
+                <h2 id="reportProgress">0%</h2>
+                <p>Overall syllabus completed</p>
+                <div class="progress-bg">
+                    <div id="reportBar" class="progress-fill"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
