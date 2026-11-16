@@ -66,6 +66,13 @@ async function loadData() {
         $('storageStatus').textContent = 'SQLite database connected';
     } catch {
         subjects = readLegacy();
+        // Static deployments (e.g. Cloudflare Pages) have no local API —
+        // fall back to the bundled sample curriculum on first visit.
+        if (subjects.length === 0 && Array.isArray(window.STUDYSYNC_SEED)) {
+            subjects = window.STUDYSYNC_SEED;
+            localStorage.setItem(LEGACY_KEY, JSON.stringify(subjects));
+            toast('Loaded the sample Computer Science curriculum.');
+        }
         useDatabase = false;
         const status = $('storageStatus');
         status.textContent = 'Offline — using this browser';
