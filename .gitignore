@@ -1,0 +1,13 @@
+# Local SQLite database files
+data/*.db
+data/*.db-*
+data/*.sqlite
+data/*.sqlite-*
+
+# Dependencies
+node_modules/
+
+# Logs & OS files
+*.log
+.DS_Store
+Thumbs.db
