@@ -74,10 +74,15 @@ function serveStatic(req, res, pathname) {
         return res.end('Forbidden');
     }
 
-    const filePath = path.resolve(ROOT, relative);
+    let filePath = path.resolve(ROOT, relative);
     if (filePath !== ROOT && !filePath.startsWith(ROOT + path.sep)) {
         res.writeHead(403);
         return res.end('Forbidden');
+    }
+
+    // Clean URLs: /subjects serves subjects.html (Cloudflare Pages does the same).
+    if (!path.extname(filePath) && !fs.existsSync(filePath) && fs.existsSync(filePath + '.html')) {
+        filePath += '.html';
     }
 
     fs.readFile(filePath, (error, data) => {

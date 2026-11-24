@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "studysync-planner",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-11-16",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "studysync-db",
+      "database_id": "e2ac2fdc-5837-4dc8-bc24-5360dd2f1f66"
+    }
+  ]
+}

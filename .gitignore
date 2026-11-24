@@ -6,6 +6,8 @@ data/*.sqlite-*
 
 # Dependencies
 node_modules/
+dist/
+.wrangler/
 
 # Logs & OS files
 *.log

@@ -7,6 +7,10 @@ const LEGACY_KEY = 'studySyncSubjects';
 const THEME_KEY = 'studySyncTheme';
 
 const $ = id => document.getElementById(id);
+const setText = (id, value) => {
+    const el = $(id);
+    if (el) el.textContent = value;
+};
 
 let subjects = [];
 let useDatabase = false;
@@ -63,7 +67,9 @@ async function loadData() {
             localStorage.removeItem(LEGACY_KEY);
             toast('Migrated your saved subjects into the local SQLite database.');
         }
-        $('storageStatus').textContent = 'SQLite database connected';
+        setText('storageStatus', data.storage === 'Cloudflare D1'
+            ? 'Cloudflare D1 connected'
+            : 'SQLite database connected');
     } catch {
         subjects = readLegacy();
         // Static deployments (e.g. Cloudflare Pages) have no local API —
@@ -75,8 +81,10 @@ async function loadData() {
         }
         useDatabase = false;
         const status = $('storageStatus');
-        status.textContent = 'Offline — using this browser';
-        status.style.color = 'var(--accent)';
+        if (status) {
+            status.textContent = 'Offline — using this browser';
+            status.style.color = 'var(--accent)';
+        }
     }
 }
 
@@ -93,7 +101,7 @@ function saveData() {
         } catch {
             useDatabase = false;
             localStorage.setItem(LEGACY_KEY, JSON.stringify(subjects));
-            $('storageStatus').textContent = 'Offline — using this browser';
+            setText('storageStatus', 'Offline — using this browser');
             toast('Database unavailable — changes saved in this browser.');
         }
     }, 150);
@@ -136,19 +144,23 @@ function updateDashboard() {
 
     const percentage = totalTopics === 0 ? 0 : Math.round((completed / totalTopics) * 100);
 
-    $('totalSubjects').textContent = subjects.length;
-    $('totalTopics').textContent = totalTopics;
-    $('completedTopics').textContent = completed;
-    $('overallProgress').textContent = `${percentage}%`;
-    $('reportProgress').textContent = `${percentage}%`;
-    $('reportBar').style.width = `${percentage}%`;
-    $('reportProgressbar').setAttribute('aria-valuenow', String(percentage));
+    setText('totalSubjects', subjects.length);
+    setText('totalTopics', totalTopics);
+    setText('completedTopics', completed);
+    setText('overallProgress', `${percentage}%`);
+    setText('reportProgress', `${percentage}%`);
 
-    $('subjectCount').textContent =
-        `${subjects.length} subject${subjects.length === 1 ? '' : 's'}`;
+    const reportBar = $('reportBar');
+    if (reportBar) reportBar.style.width = `${percentage}%`;
+    const reportProgressbar = $('reportProgressbar');
+    if (reportProgressbar) reportProgressbar.setAttribute('aria-valuenow', String(percentage));
 
-    $('emptyState').hidden = subjects.length > 0;
-    $('subjectList').hidden = subjects.length === 0;
+    setText('subjectCount', `${subjects.length} subject${subjects.length === 1 ? '' : 's'}`);
+
+    const emptyState = $('emptyState');
+    if (emptyState) emptyState.hidden = subjects.length > 0;
+    const subjectList = $('subjectList');
+    if (subjectList) subjectList.hidden = subjects.length === 0;
 
     const badges = [
         [85, 'Excellent momentum'],
@@ -156,13 +168,18 @@ function updateDashboard() {
         [30, 'Building momentum'],
         [0, 'Just getting started']
     ];
-    $('reportBadge').textContent = badges.find(([min]) => percentage >= min)[1];
+    setText('reportBadge', badges.find(([min]) => percentage >= min)[1]);
 }
 
 /* ---------- Rendering ---------- */
 
 function renderSubjects() {
     const subjectList = $('subjectList');
+    if (!subjectList) {
+        // Subjects page not open — still refresh any dashboard/report widgets.
+        updateDashboard();
+        return;
+    }
     subjectList.innerHTML = '';
 
     subjects.forEach((subject, subjectIndex) => {
@@ -355,9 +372,12 @@ function setupNavigation() {
 async function init() {
     applyTheme(localStorage.getItem(THEME_KEY) || 'light');
 
-    $('addSubjectBtn').addEventListener('click', addSubject);
-    $('emptyAddBtn').addEventListener('click', addSubject);
-    $('themeBtn').addEventListener('click', () => {
+    const addBtn = $('addSubjectBtn');
+    if (addBtn) addBtn.addEventListener('click', addSubject);
+    const emptyAddBtn = $('emptyAddBtn');
+    if (emptyAddBtn) emptyAddBtn.addEventListener('click', addSubject);
+    const themeBtn = $('themeBtn');
+    if (themeBtn) themeBtn.addEventListener('click', () => {
         applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
     });
     setupNavigation();

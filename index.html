@@ -23,13 +23,13 @@
         </div>
 
         <nav aria-label="Main navigation">
-            <a href="#dashboard" class="nav-link active" aria-current="page">
+            <a href="./" class="nav-link active" aria-current="page">
                 <span class="nav-icon" aria-hidden="true">◫</span> Dashboard
             </a>
-            <a href="#subjects" class="nav-link">
+            <a href="./subjects" class="nav-link">
                 <span class="nav-icon" aria-hidden="true">▤</span> My Subjects
             </a>
-            <a href="#reports" class="nav-link">
+            <a href="./reports" class="nav-link">
                 <span class="nav-icon" aria-hidden="true">◔</span> Progress Reports
             </a>
         </nav>
@@ -76,45 +76,17 @@
             </article>
         </section>
 
-        <section id="subjects" class="section">
+        <section class="section" aria-labelledby="quick-links-title">
             <div class="section-heading">
                 <div>
-                    <p class="eyebrow">Your syllabus</p>
-                    <h2>My Subjects</h2>
-                </div>
-                <span id="subjectCount" class="count-pill">0 subjects</span>
-            </div>
-            <div id="subjectList" class="subject-list"></div>
-            <div id="emptyState" class="empty-state" hidden>
-                <div class="empty-icon" aria-hidden="true">▤</div>
-                <h3>No subjects yet</h3>
-                <p>Add your first subject to start building your study plan.</p>
-                <button id="emptyAddBtn" class="btn btn-primary" type="button">＋ Add your first subject</button>
-            </div>
-        </section>
-
-        <section id="reports" class="section">
-            <div class="section-heading">
-                <div>
-                    <p class="eyebrow">At a glance</p>
-                    <h2>Progress Report</h2>
+                    <p class="eyebrow">Jump in</p>
+                    <h2 id="quick-links-title">Quick links</h2>
                 </div>
             </div>
-            <article class="card report-card">
-                <div class="report-top">
-                    <div>
-                        <strong id="reportProgress" class="report-value">0%</strong>
-                        <p>Overall syllabus completed</p>
-                    </div>
-                    <span class="report-badge" id="reportBadge">Just getting started</span>
-                </div>
-                <div class="progress-bg" role="progressbar" aria-label="Overall progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="reportProgressbar">
-                    <div id="reportBar" class="progress-fill"></div>
-                </div>
-                <div class="progress-legend">
-                    <span>0%</span><span>50%</span><span>100%</span>
-                </div>
-            </article>
+            <div class="action-buttons">
+                <a class="btn btn-primary" href="./subjects">Manage my subjects</a>
+                <a class="btn btn-ghost" href="./reports">View progress report</a>
+            </div>
         </section>
 
         <footer class="page-footer">

@@ -302,6 +302,7 @@ a {
     border-radius: 10px;
     font-size: 14px;
     font-weight: 600;
+    text-decoration: none;
     cursor: pointer;
     transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
